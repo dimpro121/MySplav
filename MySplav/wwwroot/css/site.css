@@ -1,0 +1,34 @@
+.navbar {
+    background-color: #238fdd;
+}
+
+.modal-header-custom {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.modal-body-submit{
+    height: 40px;
+    position: relative;
+}
+.registration-link{
+    text-decoration: none;
+    font-size: 80%;
+    display: inline-block;
+    opacity: 0.8;
+    transition: 0.5s;
+    height: 40px;
+    padding: 0 5px 0 0;
+}
+
+.registration-link:hover {
+    text-decoration: underline;
+}
+
+.registration-buttons-container{
+    position: relative;
+    height: 40px;
+}
+.registration-buttons {
+    position: absolute;
+    right: 0;
+}

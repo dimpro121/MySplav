@@ -1,0 +1,12 @@
+/.idea/*
+.vs/*
+packages/*
+*.sln.DotSettings.user
+*/obj/*
+*/bin/*
+/HeroesStat/Content/images/Category
+/HeroesStat/Content/images/Product
+/HeroesStat/node_modules/*
+/HeroesStat/.idea/*
+/HeroesStat/ViewsReact/Bundles/*
+*.csproj.user
