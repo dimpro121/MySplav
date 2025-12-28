@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="Domain/ORMDomain.csproj" Id="f9f67030-6cfc-426a-8b1d-9f85e118172a" />
   <Project Path="MySplav/MySplav.csproj" />
 </Solution>

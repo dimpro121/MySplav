@@ -1,0 +1,1 @@
+Scaffold-DbContext "Host=localhost;Database=MySplav;Username=postgres;Password=qwerty123;TrustServerCertificate=true" Npgsql.EntityFrameworkCore.PostgreSQL -OutputDir PGModels -Project ORMDomain -f
