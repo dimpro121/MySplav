@@ -17,11 +17,18 @@ namespace MySplav.Controllers
         [HttpPost]
         public IActionResult Login(LoginModel model)
         {
-            var result = LoginDomain.DomainApi.VerifyUser(model.Login, model.Psswd, _dc);
+            var result = LoginDomain.DomainApi.VerifyUser(model.Email, model.Psswd, _dc);
 
             return Ok(result);
         }
 
+        [HttpPost]
+        public IActionResult Registration(LoginModel model) 
+        {
+            var result = LoginDomain.DomainApi.RegistrationUser(model.Email, model.Psswd, _dc);
+
+            return Ok(result);
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

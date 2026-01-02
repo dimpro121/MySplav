@@ -33,8 +33,6 @@ public partial class MySplavContext : DbContext
 
             entity.HasIndex(e => e.Email, "Users_Email_key").IsUnique();
 
-            entity.HasIndex(e => e.Login, "Users_Login_key").IsUnique();
-
             entity.HasIndex(e => e.Passwd, "Users_Passwd_key").IsUnique();
 
             entity.Property(e => e.Id).UseIdentityAlwaysColumn();

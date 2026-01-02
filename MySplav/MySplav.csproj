@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\ORMDomain.csproj" />
+    <ProjectReference Include="..\LoginDomain\LoginDomain.csproj" />
   </ItemGroup>
 
 </Project>

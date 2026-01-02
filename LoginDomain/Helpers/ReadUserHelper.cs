@@ -9,24 +9,40 @@ namespace LoginDomain.Helpers
 {
     internal static class ReadUserHelper
     {
-        internal static UserVerifyModel GetUser(string login, string password, MySplavContext dc)
+        internal static UserVerifyModel VerifyUser(string email, string password, MySplavContext dc)
         {
-            var passwordHash = BCrypt.Net.BCrypt.HashPassword(password);
-
-            var user = dc.Users.Where(i => i.Email == login && i.Passwd == passwordHash).FirstOrDefault();
+            var user = dc.Users.Where(i => i.Email == email).FirstOrDefault();
 
             var result = new UserVerifyModel();
-            
+            bool isValid = false;            
+
             if (user != null)
             {
-                result.IsVerify = true;
-                result.UserId = user.Id;
+                isValid = BCrypt.Net.BCrypt.Verify(password, user.Passwd);
+            }
+
+            if (isValid)
+            {
+                result.User = GetUser(user);
             }
             else
             {
-                result.IsVerify = false;
-                result.UserId = 0;
                 result.Message = "Неправильный логин или пароль";
+            }
+
+            return result;
+        }
+
+        internal static UserModel GetUser(User user)
+        {
+            var result = new UserModel();
+            if (user == null) { return result; }
+            
+            result.Email = user.Email;
+            result.Id = user.Id;
+            foreach (var item in user.UserRoles)
+            {
+                result.Claims.AddRange(item.UserClaims.Select(i => i.Name));
             }
 
             return result;
