@@ -15,7 +15,7 @@ namespace MySplav.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginModel model)
+        public IActionResult Login([FromBody] LoginModel model)
         {
             var result = LoginDomain.DomainApi.VerifyUser(model.Email, model.Psswd, _dc);
 
@@ -23,7 +23,7 @@ namespace MySplav.Controllers
         }
 
         [HttpPost]
-        public IActionResult Registration(LoginModel model) 
+        public IActionResult Registration([FromBody] LoginModel model) 
         {
             var result = LoginDomain.DomainApi.RegistrationUser(model.Email, model.Psswd, _dc);
 

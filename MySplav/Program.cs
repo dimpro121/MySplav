@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
 using ORMDomain.PGModels;
 
 namespace MySplav
@@ -13,7 +14,7 @@ namespace MySplav
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            builder.Services.AddDbContext<MySplavContext>(options => options.UseSqlServer(connectionString));
+            builder.Services.AddDbContext<MySplavContext>(options => options.UseNpgsql(connectionString));
 
             var app = builder.Build();
 

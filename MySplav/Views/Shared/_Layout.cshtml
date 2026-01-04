@@ -43,18 +43,27 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
-                            <input type="email" class="form-control" id="LoginInputEmail" aria-describedby="emailHelp">
+                            <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp">
+                            <div class="invalid-feedback">
+                                Адрес введен некорректно
+                            </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-2">
                             <label for="exampleInputPassword1" class="form-label">Пароль</label>
-                            <input type="password" class="form-control" id="LoginInputPassword">
+                            <input type="password" class="form-control" id="login-password">
+                            <div class="invalid-feedback">
+                                Пароль введен некоректно
+                            </div>
+                        </div>
+                        <div class="invalid-feedback" id="general-login-error">
+                            Логин или пароль введены некорректно
                         </div>
                         <div class="registration-buttons-container">
                             <span class="registration-buttons">
                                 <a class="registration-link" asp-area="" asp-controller="Login" asp-action="Registration">Зарегистрироваться</a>
-                                <button type="submit" class="btn btn-primary">Отправить</button>
+                                <button type="submit" class="btn btn-primary" id="login-button">Войти</button>
                             </span>
                         </div>
                     </form>
@@ -73,6 +82,7 @@
     <script src="~/lib/bootstrap/bootstrap.min.js"></script>
     <script src="~/lib/popper/popper.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/login/login.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
