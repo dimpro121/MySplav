@@ -22,7 +22,7 @@
                         </li>
                     </ul>
 
-                    <button type="button" class="d-flex btn btn-outline-light my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="d-flex btn btn-outline-light my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#login-modal">
                         Войти
                     </button>
                 </div>
@@ -35,7 +35,7 @@
         </main>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+    <div class="modal fade" id="login-modal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content modal-content-custom">
                 <div class="modal-header modal-header-custom">
@@ -44,14 +44,14 @@
                 <div class="modal-body">
                     <form>
                         <div class="mb-2">
-                            <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
+                            <label for="login-email" class="form-label">Адрес электронной почты</label>
                             <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp">
                             <div class="invalid-feedback">
                                 Адрес введен некорректно
                             </div>
                         </div>
                         <div class="mb-2">
-                            <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                            <label for="login-password" class="form-label">Пароль</label>
                             <input type="password" class="form-control" id="login-password">
                             <div class="invalid-feedback">
                                 Пароль введен некоректно
@@ -62,8 +62,51 @@
                         </div>
                         <div class="registration-buttons-container">
                             <span class="registration-buttons">
-                                <a class="registration-link" asp-area="" asp-controller="Login" asp-action="Registration">Зарегистрироваться</a>
+                                <a class="registration-link" data-bs-toggle="modal" data-bs-target="#registration-modal">Зарегистрироваться</a>
                                 <button type="submit" class="btn btn-primary" id="login-button">Войти</button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="registration-modal" tabindex="-2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content modal-content-custom">
+                <div class="modal-header modal-header-custom">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-2">
+                            <label for="registration-email" class="form-label">Адрес электронной почты</label>
+                            <input type="email" class="form-control" id="registration-email" aria-describedby="emailHelp">
+                            <div class="invalid-feedback">
+                                Адрес введен некорректно
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="registration-password" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" id="registration-password">
+                            <div class="invalid-feedback">
+                                Пароль введен некоректно
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <label for="registration-password-repeat" class="form-label">Повторите пароль</label>
+                            <input type="password" class="form-control" id="registration-password-repeat">
+                            <div class="invalid-feedback">
+                                Пароль введен некоректно
+                            </div>
+                        </div>
+                        <div class="invalid-feedback" id="registration-general-password-error">
+                            Логин или пароль введены некорректно
+                        </div>
+                        <div class="registration-buttons-container">
+                            <span class="registration-buttons">
+                                <button type="submit" class="btn btn-primary" id="registration-button">Зарегистрироваться</button>
                             </span>
                         </div>
                     </form>
@@ -82,7 +125,9 @@
     <script src="~/lib/bootstrap/bootstrap.min.js"></script>
     <script src="~/lib/popper/popper.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/login/general.js"></script>
     <script src="~/js/login/login.js"></script>
+    <script src="~/js/login/registration.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
