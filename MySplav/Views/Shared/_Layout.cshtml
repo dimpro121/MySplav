@@ -21,10 +21,17 @@
                         <li class="nav-item">
                         </li>
                     </ul>
-
-                    <button type="button" class="d-flex btn btn-outline-light my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#login-modal">
-                        Войти
-                    </button>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <button type="button" class="d-flex btn btn-outline-light my-2 my-sm-0" data-bs-toggle="modal" data-bs-target="#login-modal">
+                            Войти
+                        </button>
+                    } else
+                    {   
+                        <button type="button" class="d-flex btn btn-outline-light my-2 my-sm-0" id="button-logout">
+                            Выйти
+                        </button>
+                    }
                 </div>
             </div>
         </nav>
@@ -127,6 +134,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/js/login/general.js"></script>
     <script src="~/js/login/login.js"></script>
+    <script src="~/js/login/logout.js"></script>
     <script src="~/js/login/registration.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>

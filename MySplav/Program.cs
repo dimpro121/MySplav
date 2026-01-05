@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using ORMDomain.PGModels;
@@ -16,6 +17,19 @@ namespace MySplav
 
             builder.Services.AddDbContext<MySplavContext>(options => options.UseNpgsql(connectionString));
 
+            // Настраиваем аутентификацию через куки
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Login/Login";     
+                    options.LogoutPath = "/Login/Logout";   
+                    options.AccessDeniedPath = "/Login/AccessDenied"; 
+                    options.ExpireTimeSpan = TimeSpan.FromDays(365);
+                    options.SlidingExpiration = true;
+                });
+
+            builder.Services.AddAuthorization();
+
             var app = builder.Build();
 
 
@@ -26,6 +40,7 @@ namespace MySplav
             }
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();

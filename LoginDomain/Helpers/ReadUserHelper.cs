@@ -1,14 +1,16 @@
 ﻿using LoginDomain.Models;
+using Microsoft.EntityFrameworkCore;
 using ORMDomain.PGModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LoginDomain.Helpers
 {
     internal static class ReadUserHelper
     {
-        internal static UserVerifyModel VerifyUser(string email, string password, MySplavContext dc)
+        internal static async Task<UserVerifyModel> VerifyUserAsync(string email, string password, MySplavContext dc)
         {
             var user = dc.Users.Where(i => i.Email == email).FirstOrDefault();
 
@@ -22,7 +24,7 @@ namespace LoginDomain.Helpers
 
             if (isValid)
             {
-                result.User = GetUser(user);
+                result.User = await GetUserAsync(user, dc);
             }
             else
             {
@@ -32,16 +34,26 @@ namespace LoginDomain.Helpers
             return result;
         }
 
-        internal static UserModel GetUser(User user)
+        internal static async Task<UserModel> GetUserAsync(User user, MySplavContext dc)
         {
+            if (user == null) { return null; }
+
             var result = new UserModel();
-            if (user == null) { return result; }
-            
             result.Email = user.Email;
             result.Id = user.Id;
-            foreach (var item in user.UserRoles)
+
+            var claims =
+                    await dc.Database
+                        .SqlQueryRaw<string>(@"SELECT uc.""Name""
+	                                            FROM public.""Users"" as u
+                                            left join public.""UserRolesConnectionUsers"" as urcu on urcu.""UserId"" = u.""Id""
+                                            left join public.""UserClaimsConnectionRoles"" as uccr on urcu.""UserRoleId"" = uccr.""UserRoleId"" 
+                                            left join public.""UserClaims"" as uc on uc.""Id"" = uccr.""UserClaimId""
+	                                            where u.""Id"" = {0}", user.Id).ToListAsync();
+
+            if (claims.Any())
             {
-                result.Claims.AddRange(item.UserClaims.Select(i => i.Name));
+                result.Claims = claims;
             }
 
             return result;

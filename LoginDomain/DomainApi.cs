@@ -7,14 +7,14 @@ namespace LoginDomain
 {
     public static class DomainApi
     {
-        public static UserVerifyModel VerifyUser(string email, string password, MySplavContext dc)
+        public static async Task<UserVerifyModel> VerifyUserAsync(string email, string password, MySplavContext dc)
         {
-            return ReadUserHelper.VerifyUser(email, password, dc);
+            return await ReadUserHelper.VerifyUserAsync(email, password, dc);
         }
 
-        public static UserVerifyModel RegistrationUser(string email, string password, MySplavContext dc)
+        public static async Task<UserVerifyModel> RegistrationUserAsync(string email, string password, MySplavContext dc)
         {
-            return RegistrationUserHelper.RegistrationUser(email, password, dc);
+            return await RegistrationUserHelper.RegistrationUserAsync(email, password, dc);
         }
     }
 }

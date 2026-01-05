@@ -11,7 +11,7 @@ namespace LoginDomain.Helpers
     {
         internal static int DefaultRoleId = 1;
 
-        internal static UserVerifyModel RegistrationUser(string email, string password, MySplavContext dc)
+        internal static async Task<UserVerifyModel> RegistrationUserAsync(string email, string password, MySplavContext dc)
         {
             var result = new UserVerifyModel();
 
@@ -38,7 +38,7 @@ namespace LoginDomain.Helpers
             dc.Users.Add(newUser);
             dc.SaveChanges();
 
-            result.User = ReadUserHelper.GetUser(newUser);
+            result.User = await ReadUserHelper.GetUserAsync(newUser, dc);
 
             return result;
         }
