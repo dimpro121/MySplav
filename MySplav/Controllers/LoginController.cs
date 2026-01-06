@@ -70,7 +70,7 @@ namespace MySplav.Controllers
                 new Claim(ClaimTypes.Email, user.Email)
             };
 
-            claims.AddRange(user.Claims.Select(i => new Claim("Claim", i)).ToList());
+            claims.AddRange(user.Claims.Select(i => new Claim("Permission", i)).ToList());
             
 
             var claimsIdentity = new ClaimsIdentity(

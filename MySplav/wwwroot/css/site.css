@@ -35,3 +35,12 @@
 .registration-link{
     cursor: pointer;
 }
+
+.nav-link{
+    color: rgba(255, 255, 255, 0.9) !important;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    color: rgb(255, 255, 255) !important;
+}
