@@ -23,5 +23,14 @@
     <ProjectReference Include="..\Domain\ORMDomain.csproj" />
     <ProjectReference Include="..\LoginDomain\LoginDomain.csproj" />
   </ItemGroup>
+  
+  <Target Name="BuildClientApp" BeforeTargets="Build">
+    <Exec Condition=" '$(Configuration)' == 'Release' " 
+          WorkingDirectory="ClientApp" 
+          Command="npm install" />
+    <Exec Condition=" '$(Configuration)' == 'Release' " 
+          WorkingDirectory="ClientApp" 
+          Command="npm run build" />
+  </Target>
 
 </Project>
