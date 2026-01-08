@@ -15,6 +15,8 @@ public partial class MySplavContext : DbContext
     {
     }
 
+    public virtual DbSet<Route> Routes { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserClaim> UserClaims { get; set; }
@@ -27,6 +29,18 @@ public partial class MySplavContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Route>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Routes_pkey");
+
+            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
+
+            entity.HasOne(d => d.User).WithMany(p => p.Routes)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("RoutesUser_fk");
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Users_pkey");

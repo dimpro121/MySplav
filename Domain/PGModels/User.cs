@@ -11,5 +11,7 @@ public partial class User
 
     public string Passwd { get; set; } = null!;
 
+    public virtual ICollection<Route> Routes { get; set; } = new List<Route>();
+
     public virtual ICollection<UserRole> UserRoles { get; set; } = new List<UserRole>();
 }

@@ -10,5 +10,9 @@ namespace MySplav.Controllers
         {
             return View();
         }
+        public IActionResult Add()
+        {
+            return View("List");
+        }
     }
 }
