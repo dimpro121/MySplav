@@ -21,7 +21,7 @@ namespace MySplav.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var result = await LoginDomain.DomainApi.VerifyUserAsync(model.Email, model.Password, _dc);
+            var result = await LoginDomain.LoginApi.VerifyUserAsync(model.Email, model.Password, _dc);
             if (result.User != null)
             {
                 await SignInUser(result.User);
@@ -33,7 +33,7 @@ namespace MySplav.Controllers
         [HttpPost]
         public async Task<IActionResult> Registration([FromBody] LoginModel model) 
         {
-            var result = await LoginDomain.DomainApi.RegistrationUserAsync(model.Email, model.Password, _dc);
+            var result = await LoginDomain.LoginApi.RegistrationUserAsync(model.Email, model.Password, _dc);
             if (result.User != null)
             {
                 await SignInUser(result.User);

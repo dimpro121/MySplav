@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Domains/">
     <Project Path="LoginDomain/LoginDomain.csproj" Id="8fbc6982-3f93-4200-8ed4-50c228ae7990" />
+    <Project Path="RoutesDomain/RoutesDomain.csproj" Id="5458e2b4-da87-411a-a610-e7bd110d6483" />
   </Folder>
   <Project Path="Domain/ORMDomain.csproj" Id="f9f67030-6cfc-426a-8b1d-9f85e118172a" />
   <Project Path="MySplav/MySplav.csproj" />

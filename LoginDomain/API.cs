@@ -5,7 +5,7 @@ using ORMDomain.PGModels;
 
 namespace LoginDomain
 {
-    public static class DomainApi
+    public static class API
     {
         public static async Task<UserVerifyModel> VerifyUserAsync(string email, string password, MySplavContext dc)
         {

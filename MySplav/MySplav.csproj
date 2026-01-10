@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\ORMDomain.csproj" />
     <ProjectReference Include="..\LoginDomain\LoginDomain.csproj" />
+    <ProjectReference Include="..\RoutesDomain\RoutesDomain.csproj" />
   </ItemGroup>
   
   <Target Name="BuildClientApp" BeforeTargets="Build">
