@@ -7,14 +7,17 @@ import Navigation from './Navigation/Navigation';
 
 function App() {
     return (
-        <BrowserRouter>
-            <Navigation/>
+        <div id="app-main-container">
+            <BrowserRouter>
+                <Navigation />
 
-            <Routes>
-                <Route path="/Routes/List" element={<RoutesList />} />
-                <Route path="/Routes/Add" element={<RoutesAdd />} />
-            </Routes>
-        </BrowserRouter>
+                <Routes>
+                    <Route path="/Routes/List" element={<RoutesList />} />
+                    <Route path="/Routes/Add" element={<RoutesAdd />} />
+                </Routes>
+            </BrowserRouter>
+        </div>
+        
     );
 }
 

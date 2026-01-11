@@ -1,5 +1,13 @@
 .navbar {
-    background-color: #238fdd;
+    background-color: var(--main-color);
+}
+
+.bg-main {
+    background-color: var(--main-color);
+}
+
+:root {
+    --main-color: #238fdd;
 }
 
 .modal-header-custom {

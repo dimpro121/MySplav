@@ -4,6 +4,7 @@ using MySplav.Models;
 using ORMDomain.PGModels;
 using RoutesDomain.Models;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MySplav.Controllers
@@ -34,8 +35,17 @@ namespace MySplav.Controllers
         {
             if (User.HasClaim("Permission", "AddRoutes"))
             {
-                var result = await RoutesDomain.API.AddRoute(model, _dc);
-                return Ok(result);
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                int id = 0;
+                if (Int32.TryParse(userId, out id))
+                {
+                    model.UserId = id;
+                    var result = await RoutesDomain.API.AddRoute(model, _dc);
+                    return Ok(result);
+                }
+                else {
+                    return BadRequest("Неизвестная ошибка");
+                }
             }
 
             return Unauthorized();
