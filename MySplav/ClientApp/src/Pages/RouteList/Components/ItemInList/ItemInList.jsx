@@ -8,7 +8,7 @@ export default function ItemInList({ item, onEdit, onDelete }) {
         <div className="list-group-item list-group-item-action" >
             <div className="d-flex w-100 justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
-                    <div className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                    <div className="bg-main text-white rounded-circle d-flex align-items-center justify-content-center me-3"
                         style={{ width: '40px', height: '40px' }}>
                         <span className="fw-bold">{item.id}</span>
                     </div>

@@ -15,13 +15,6 @@ export default function Navigation() {
                         <button type="button" className="btn btn-primary">Добавить маршрут</button>
                     </Link>
                 }
-
-                {
-                    isAddPage &&
-                    <Link to="/Routes/List">
-                        <button type="button" className="btn btn-secondary">Назад к списку</button>
-                    </Link>
-                }
             </nav>
         </div>
         
