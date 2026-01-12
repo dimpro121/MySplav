@@ -24,6 +24,10 @@
     <ProjectReference Include="..\LoginDomain\LoginDomain.csproj" />
     <ProjectReference Include="..\RoutesDomain\RoutesDomain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\imgs\icons\" />
+  </ItemGroup>
   
   <Target Name="BuildClientApp" BeforeTargets="Build">
     <Exec Condition=" '$(Configuration)' == 'Release' " WorkingDirectory="ClientApp" Command="npm install" />
