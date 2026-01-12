@@ -4,7 +4,7 @@ import './Navigation.css';
 
 export default function Navigation() {
     const location = useLocation();
-    const isAddPage = location.pathname === '/Routes/Add';
+    const isAddPage = location.pathname === '/Routes/Add' || location.pathname.includes('/Routes/Change');
 
     return (
         <div id="Navigation-block">

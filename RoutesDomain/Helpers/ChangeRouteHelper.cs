@@ -1,4 +1,5 @@
-﻿using ORMDomain.PGModels;
+﻿using Microsoft.EntityFrameworkCore;
+using ORMDomain.PGModels;
 using RoutesDomain.Models;
 using System;
 using System.Collections.Generic;
@@ -22,5 +23,21 @@ namespace RoutesDomain.Helpers
             await dc.SaveChangesAsync();
             return new RouteModel(route);
         }
+        internal static async Task<RouteModel> ChangeRoute(RouteModel model, MySplavContext dc)
+        {
+            var route = await dc.Routes.Where(i => i.Id == model.Id && i.UserId == model.UserId).FirstOrDefaultAsync();
+            
+            if (route == null)
+            {
+                throw new Exception("Неизвестная ошибка");
+            }
+
+            route.Name = model.Name;
+            route.Description = model.Description;
+            
+            await dc.SaveChangesAsync();
+            return new RouteModel(route);
+        }
+
     }
 }

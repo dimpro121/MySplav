@@ -30,6 +30,11 @@ namespace MySplav.Controllers
             return View("List");
         }
 
+        public IActionResult Change()
+        {
+            return View("List");
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddRoute([FromBody] RouteModel model)
         {
@@ -51,5 +56,70 @@ namespace MySplav.Controllers
             return Unauthorized();
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeRoute([FromBody] RouteModel model)
+        {
+            if (User.HasClaim("Permission", "AddRoutes"))
+            {
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                int id = 0;
+                if (Int32.TryParse(userId, out id))
+                {
+                    model.UserId = id;
+                    var result = await RoutesDomain.API.ChangeRoute(model, _dc);
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Неизвестная ошибка");
+                }
+            }
+
+            return Unauthorized();
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetList()
+        {
+            if (User.HasClaim("Permission", "AddRoutes"))
+            {
+                string user = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                int userId = 0;
+                if (Int32.TryParse(user, out userId))
+                {
+                    var result = await RoutesDomain.API.GetListRoute(userId, _dc);
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Неизвестная ошибка");
+                }
+            }
+
+            return Unauthorized();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(int id)
+        {
+            if (User.HasClaim("Permission", "AddRoutes"))
+            {
+                string user = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                int userId = 0;
+                if (Int32.TryParse(user, out userId))
+                {
+                    var result = await RoutesDomain.API.GetRoute(id, userId, _dc);
+                    return Ok(result);
+                }
+                else
+                {
+                    return BadRequest("Неизвестная ошибка");
+                }
+            }
+
+            return Unauthorized();
+        }
     }
 }

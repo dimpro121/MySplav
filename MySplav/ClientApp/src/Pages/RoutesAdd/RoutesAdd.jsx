@@ -1,13 +1,19 @@
-import React, { useState } from 'react';
+import { useParams, useNavigate  } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 import "./RoutesAdd.css";
 
 function RoutesAdd() {
+    const { id } = useParams();
+    const navigate = useNavigate();
+
     const [data, setData] = useState({
         id: 0,
         name: "",
         description: ""
     });
 
+
+    const [blockButtonSubmit, setBlockButtonSubmit] = useState(false)
     const handleChange = (e) => {
         const { name, value } = e.target;
         setData(prevState => ({
@@ -16,33 +22,75 @@ function RoutesAdd() {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        fetch('/Routes/AddRoute', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify(data)
-        })
+    const loadRouteData = (id) => {
+        fetch(`/Routes/Get?id=${id}`)
         .then(response => {
             return response.json()
         })
         .then(data => {
             if (data.id) {
-            setData(data)
-        }
+                setData(data)
+            }
+            setBlockButtonSubmit(false);
         })
         .catch(error => {
+            setBlockButtonSubmit(false);
         });
+    }
+
+    useEffect(() => {
+        if (id) {
+            loadRouteData(id);
+        }
+    }, [id]);
+
+
+    useEffect(() => {
+        if (data.id != 0) {
+            navigate(`/Routes/Change/${data.id}`);
+        }
+    }, [data]);
+
+    const handleSubmit = (e) => {
+        if (!blockButtonSubmit) {
+            setBlockButtonSubmit(true);
+            e.preventDefault();
+            let link = "/Routes/AddRoute";
+
+            if (data.id != 0) {
+                link = "/Routes/ChangeRoute";
+            }
+
+            fetch(link, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                return response.json()
+            })
+            .then(data => {
+                if (data.id) {
+                    setData(data)
+                }
+                setBlockButtonSubmit(false);
+            })
+            .catch(error => {
+                setBlockButtonSubmit(false);
+            });
+        }
     };
 
     return (
         <div className="container mt-4">
             <div className="card shadow">
                 <div className="card-header bg-main text-white">
-                    <h2 className="mb-0">Добавление маршрута</h2>
+                    <h2 className="mb-0">
+                        {data.id == 0 && "Добавление маршрута"}
+                        {data.id != 0 && "Изменение маршрута"}
+                    </h2>
                 </div>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
@@ -97,22 +145,11 @@ function RoutesAdd() {
                             </div>
                         </div>
 
-                        {/* Кнопки действий */}
                         <div className="d-flex justify-content-between mt-4">
-                            <button
-                                type="button"
-                                className="btn btn-secondary"
-                                onClick={() => setData({
-                                    Id: 0,
-                                    Name: "",
-                                    Description: ""
-                                })}
-                            >
-                                Очистить форму
-                            </button>
                             <button
                                 type="submit"
                                 className="btn btn-primary"
+                                disabled={blockButtonSubmit}
                             >
                                 Опубликовать
                             </button>

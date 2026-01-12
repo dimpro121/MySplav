@@ -14,6 +14,7 @@ function App() {
                 <Routes>
                     <Route path="/Routes/List" element={<RoutesList />} />
                     <Route path="/Routes/Add" element={<RoutesAdd />} />
+                    <Route path="/Routes/Change/:id?" element={<RoutesAdd />} />
                 </Routes>
             </BrowserRouter>
         </div>
