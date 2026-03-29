@@ -8,6 +8,7 @@
 
 body{
     min-height: 100vh;
+    position: relative;
     padding: 0 0 100px 0;
 }
 
