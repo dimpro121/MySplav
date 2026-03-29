@@ -23,14 +23,14 @@ export default function ItemInList({ item, onEdit, onDelete }) {
                 <div className="btn-group btn-group-sm">
                     {onEdit && (
                         <img src="/imgs/icons/pencil.svg"
-                            className="btn btn-outline-primary"
+                            className="btn MySplav-btn MySplav-btn-outline"
                             onClick={() => { navigate(`/Routes/Change/${item.id}`) }}
                             title="Изменить"
                         />
                     )}
                     {onDelete && (
                             <img src="/imgs/icons/trash.svg" 
-                                className="btn btn-outline-danger"
+                                className="btn MySplav-btn btn-outline-danger"
                                 onClick={() => onDelete(item)} 
                                 title="Удалить"
                             />

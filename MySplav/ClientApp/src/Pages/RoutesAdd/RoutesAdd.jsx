@@ -54,13 +54,6 @@ function RoutesAdd() {
         }
     }, [id]);
 
-    // Убрал проблемный useEffect который создавал бесконечный цикл
-    // useEffect(() => {
-    //     if (data.id != 0) {
-    //         navigate(`/Routes/Change/${data.id}`);
-    //     }
-    // }, [data, navigate]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -94,13 +87,9 @@ function RoutesAdd() {
 
             if (result.id) {
                 setData(result);
-                // После успешного сохранения перенаправляем
                 if (data.id === 0) {
-                    // Если это добавление нового маршрута
                     navigate(`/Routes/Change/${result.id}`, { replace: true });
                 } else {
-                    // Если это изменение существующего
-                    // Можно показать сообщение об успехе
                     alert('Данные успешно сохранены!');
                 }
             }
@@ -118,7 +107,7 @@ function RoutesAdd() {
     };
 
     return (
-        <div className="container mt-4">
+        <div className="RoutesAdd-container">
             <div className="card shadow">
                 <div className="card-header bg-main text-white d-flex justify-content-between align-items-center">
                     <h2 className="mb-0">

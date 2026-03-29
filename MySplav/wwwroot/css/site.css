@@ -69,3 +69,15 @@ footer{
 .nav-link:hover {
     color: rgb(255, 255, 255) !important;
 }
+
+.MySplav-container{
+    margin: 65px 0 0 0;
+}
+
+.MySplav-btn-outline {
+    border: 1px solid var(--main-color);
+}
+
+.MySplav-btn:hover {
+    background-color: var(--main-color);
+}
