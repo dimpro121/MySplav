@@ -87,7 +87,7 @@ function RouteList() {
                             <i className="bi bi-signpost-split me-2"></i>
                             Список маршрутов
                         </h2>
-                        <span className="badge bg-primary">
+                        <span className="badge bg-main">
                             Всего: {filteredData.length}
                         </span>
                     </div>
