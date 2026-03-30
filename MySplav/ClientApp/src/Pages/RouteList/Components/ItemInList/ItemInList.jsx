@@ -2,7 +2,7 @@ import React from 'react';
 import "./ItemInList.css";
 import { useNavigate } from 'react-router-dom';
 
-export default function ItemInList({ item, onEdit, onDelete }) {
+export default function ItemInList({ item, onDelete }) {
     const navigate = useNavigate();
     return (
         <div className="list-group-item list-group-item-action" >
@@ -21,13 +21,11 @@ export default function ItemInList({ item, onEdit, onDelete }) {
                 </div>
 
                 <div className="btn-group btn-group-sm">
-                    {onEdit && (
-                        <img src="/imgs/icons/pencil.svg"
-                            className="btn MySplav-btn MySplav-btn-outline"
-                            onClick={() => { navigate(`/Routes/Change/${item.id}`) }}
-                            title="Изменить"
-                        />
-                    )}
+                    <img src="/imgs/icons/pencil.svg"
+                        className="btn MySplav-btn MySplav-btn-outline"
+                        onClick={() => { navigate(`/Routes/Change/${item.id}`) }}
+                        title="Изменить"
+                    />
                     {onDelete && (
                             <img src="/imgs/icons/trash.svg" 
                                 className="btn MySplav-btn btn-outline-danger"

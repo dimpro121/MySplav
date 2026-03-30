@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./RouteList.css";
 import ItemInList from './Components/ItemInList/ItemInList';
+import DialogAgree from '../../Shared/DialogAgree/DialogAgree';
 
 function RouteList() {
     const [data, setData] = useState([]);
@@ -8,23 +9,37 @@ function RouteList() {
     const [searchTerm, setSearchTerm] = useState('');
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isDialogDeleteOpen, setIsDialogDeleteOpen] = useState(false);
+    let idForDelete = 0;
 
     const onDelete = (item) => {
-        console.log('Delete item:', item);
-        // Реализуйте удаление
+        setIsDialogDeleteOpen(true);
     }
 
-    const onEdit = (item) => {
-        console.log('Edit item:', item);
-        // Реализуйте редактирование
-    }
+    const handleConfirmDelete = () => {
+        fetch(`/Routes/Delete/` + idForDelete)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Ошибка загрузки данных');
+                }
+                return response.json();
+            })
+            .then(data => {
+                updateList();
+            })
+            .catch(error => {
+                setError('Не удалось удалить объект');
+            })
+            .finally(() => {
+            });
 
-    const onView = (item) => {
-        console.log('View item:', item);
-        // Реализуйте просмотр
-    }
+        setIsDialogDeleteOpen(false);
+    };
 
-    // Функция фильтрации
+    const handleCancelDelete = () => {
+        setIsDialogDeleteOpen(false);
+    };
+
     const filterData = (term) => {
         if (!term.trim()) {
             setFilteredData(data);
@@ -41,20 +56,18 @@ function RouteList() {
         setFilteredData(filtered);
     };
 
-    // Обработчик изменения поискового запроса
     const handleSearchChange = (e) => {
         const value = e.target.value;
         setSearchTerm(value);
         filterData(value);
     };
 
-    // Очистка поиска
     const handleClearSearch = () => {
         setSearchTerm('');
         setFilteredData(data);
     };
 
-    useEffect(() => {
+    const updateList = () => {
         setIsLoading(true);
         setError(null);
 
@@ -76,6 +89,10 @@ function RouteList() {
             .finally(() => {
                 setIsLoading(false);
             });
+    }
+
+    useEffect(() => {
+        updateList();
     }, []);
 
     return (
@@ -185,7 +202,6 @@ function RouteList() {
                 </div>
             )}
 
-            {/* Список маршрутов */}
             {!isLoading && !error && filteredData.length > 0 && (
                 <div className="row">
                     <div className="col-12">
@@ -195,8 +211,6 @@ function RouteList() {
                                     key={item.id}
                                     item={item}
                                     onDelete={onDelete}
-                                    onEdit={onEdit}
-                                    onView={onView}
                                 />
                             ))}
                         </div>
@@ -204,7 +218,12 @@ function RouteList() {
                 </div>
             )}
 
-            {/* Статистика в футере */}
+            <DialogAgree
+                isOpen={isDialogDeleteOpen}
+                onClose={handleCancelDelete}
+                onConfirm={handleConfirmDelete}
+            />
+
             {!isLoading && !error && filteredData.length > 0 && (
                 <div className="row mt-4">
                     <div className="col-12">

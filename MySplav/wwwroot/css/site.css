@@ -7,7 +7,7 @@
 }
 
 body{
-    min-height: 100vh;
+    min-height: calc(100vh - 65px);
     position: relative;
     padding: 0 0 100px 0;
 }
