@@ -7,9 +7,9 @@ namespace RoutesDomain
 {
     public static class API
     {
-        public static async Task<RouteModel> GetRoute(int id, int userId, MySplavContext dc)
+        public static async Task<RouteModel> GetRoute(int id, MySplavContext dc)
         {
-            var result = await GetRouteHelper.GetRoute(id, userId, dc);
+            var result = await GetRouteHelper.GetRoute(id, dc);
             return result;
         }
 
@@ -29,6 +29,11 @@ namespace RoutesDomain
         {
             var result = await ChangeRouteHelper.ChangeRoute(model, dc);
             return result;
+        }
+
+        public static async Task DeleteRoute(int id, int userId, MySplavContext dc)
+        {
+            await ChangeRouteHelper.DeleteRoute(id, userId, dc);
         }
     }
 }

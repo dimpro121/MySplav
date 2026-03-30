@@ -10,12 +10,9 @@ namespace RoutesDomain.Helpers
 {
     internal static class GetRouteHelper
     {
-        internal static async Task<RouteModel> GetRoute(int id, int userId, MySplavContext dc)
+        internal static async Task<RouteModel> GetRoute(int id, MySplavContext dc)
         {
-            var route = await dc.Routes.Where(i => i.Id == id && i.UserId == userId).FirstOrDefaultAsync();
-            if (route == null) {
-                throw new Exception("Нет прав");
-            }
+            var route = await dc.Routes.Where(i => i.Id == id && i.IsDeleted == false).FirstOrDefaultAsync();
 
             return new RouteModel(route);
         }
@@ -24,7 +21,7 @@ namespace RoutesDomain.Helpers
         {
             var routes = 
                 await dc.Routes
-                        .Where(i => i.UserId == userId)
+                        .Where(i => i.UserId == userId && i.IsDeleted == false)
                         .OrderByDescending(i => i.Id)
                         .Select(i => new RouteModel(i))
                         .ToListAsync();

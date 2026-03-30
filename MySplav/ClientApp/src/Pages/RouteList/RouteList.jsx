@@ -10,9 +10,10 @@ function RouteList() {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [isDialogDeleteOpen, setIsDialogDeleteOpen] = useState(false);
-    let idForDelete = 0;
+    const [idForDelete, setIdForDelete] = useState(0);
 
     const onDelete = (item) => {
+        setIdForDelete(item.id);
         setIsDialogDeleteOpen(true);
     }
 

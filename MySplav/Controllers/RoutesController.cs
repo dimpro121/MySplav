@@ -56,7 +56,6 @@ namespace MySplav.Controllers
             return Unauthorized();
         }
 
-
         [HttpPost]
         public async Task<IActionResult> ChangeRoute([FromBody] RouteModel model)
         {
@@ -79,6 +78,35 @@ namespace MySplav.Controllers
             return Unauthorized();
         }
 
+        [HttpGet]
+        [Route("/Routes/Delete/{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (User.HasClaim("Permission", "AddRoutes"))
+            {
+                string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                int uid = 0;
+
+                if (Int32.TryParse(userId, out uid))
+                {
+                    try
+                    {
+                        await RoutesDomain.API.DeleteRoute(id, uid, _dc);
+                        return Ok(new { Message = "Успешное удаление" });
+                    }
+                    catch
+                    {
+                        return Unauthorized();
+                    }
+                }
+                else
+                {
+                    return BadRequest("Неизвестная ошибка");
+                }
+            }
+
+            return Unauthorized();
+        }
 
         [HttpGet]
         public async Task<IActionResult> GetList()
@@ -110,7 +138,13 @@ namespace MySplav.Controllers
                 int userId = 0;
                 if (Int32.TryParse(user, out userId))
                 {
-                    var result = await RoutesDomain.API.GetRoute(id, userId, _dc);
+                    var result = await RoutesDomain.API.GetRoute(id, _dc);
+                    
+                    if (result.UserId != userId)
+                    {
+                        return Unauthorized();
+                    }
+
                     return Ok(result);
                 }
                 else
