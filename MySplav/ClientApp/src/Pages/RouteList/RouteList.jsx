@@ -97,9 +97,9 @@ function RouteList() {
     }, []);
 
     return (
-        <div>
-            <div className="row mb-4">
-                <div className="col-12">
+        <div className="RouteList">
+            <div className="RouteList-header">
+                <div>
                     <div className="d-flex justify-content-between align-items-center mb-3">
                         <h2 className="mb-0">
                             <i className="bi bi-signpost-split me-2"></i>
@@ -141,8 +141,8 @@ function RouteList() {
             </div>
 
             {isLoading && (
-                <div className="row">
-                    <div className="col-12">
+                <div>
+                    <div>
                         <div className="text-center py-5">
                             <div className="spinner-border text-primary" role="status">
                                 <span className="visually-hidden">Загрузка...</span>
@@ -154,8 +154,8 @@ function RouteList() {
             )}
 
             {error && !isLoading && (
-                <div className="row">
-                    <div className="col-12">
+                <div>
+                    <div>
                         <div className="alert alert-danger" role="alert">
                             <i className="bi bi-exclamation-triangle me-2"></i>
                             {error}
@@ -172,8 +172,8 @@ function RouteList() {
             )}
 
             {!isLoading && !error && data.length === 0 && (
-                <div className="row">
-                    <div className="col-12">
+                <div>
+                    <div>
                         <div className="card text-center py-5">
                             <div className="card-body">
                                 <i className="bi bi-signpost text-muted" style={{ fontSize: '3rem' }}></i>
@@ -186,8 +186,8 @@ function RouteList() {
             )}
 
             {!isLoading && !error && data.length > 0 && filteredData.length === 0 && (
-                <div className="row">
-                    <div className="col-12">
+                <div>
+                    <div>
                         <div className="alert alert-warning" role="alert">
                             <i className="bi bi-search me-2"></i>
                             По запросу "{searchTerm}" ничего не найдено
@@ -204,8 +204,8 @@ function RouteList() {
             )}
 
             {!isLoading && !error && filteredData.length > 0 && (
-                <div className="row">
-                    <div className="col-12">
+                <div>
+                    <div>
                         <div className="list-group">
                             {filteredData.map(item => (
                                 <ItemInList
@@ -226,8 +226,8 @@ function RouteList() {
             />
 
             {!isLoading && !error && filteredData.length > 0 && (
-                <div className="row mt-4">
-                    <div className="col-12">
+                <div className="mt-4">
+                    <div>
                         <div className="d-flex justify-content-between align-items-center text-muted">
                             <small>
                                 Показано {filteredData.length} из {data.length} маршрутов
