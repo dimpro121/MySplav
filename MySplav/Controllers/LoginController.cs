@@ -1,9 +1,9 @@
-using LoginDomain.Models;
+using Domain.Models.Login;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using MySplav.Models;
-using ORMDomain.PGModels;
+using Domain.PGModels;
 using System.Diagnostics;
 using System.Security.Claims;
 

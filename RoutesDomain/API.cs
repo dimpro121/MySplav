@@ -1,6 +1,6 @@
-﻿using ORMDomain.PGModels;
+﻿using Domain.Models.Routes;
+using Domain.PGModels;
 using RoutesDomain.Helpers;
-using RoutesDomain.Models;
 using System.Threading.Tasks;
 
 namespace RoutesDomain

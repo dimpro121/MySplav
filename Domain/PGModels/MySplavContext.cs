@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace ORMDomain.PGModels;
+namespace Domain.PGModels;
 
 public partial class MySplavContext : DbContext
 {
@@ -10,6 +10,8 @@ public partial class MySplavContext : DbContext
         : base(options)
     {
     }
+
+    public virtual DbSet<River> Rivers { get; set; }
 
     public virtual DbSet<Route> Routes { get; set; }
 
@@ -21,6 +23,13 @@ public partial class MySplavContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<River>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Rivers_pkey");
+
+            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
+        });
+
         modelBuilder.Entity<Route>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Routes_pkey");
@@ -32,6 +41,25 @@ public partial class MySplavContext : DbContext
                 .HasForeignKey(d => d.UserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("RoutesUser_fk");
+
+            entity.HasMany(d => d.Rivers).WithMany(p => p.Routes)
+                .UsingEntity<Dictionary<string, object>>(
+                    "RouteRiver",
+                    r => r.HasOne<River>().WithMany()
+                        .HasForeignKey("RiverId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("fk_RouteRivers_Rivers"),
+                    l => l.HasOne<Route>().WithMany()
+                        .HasForeignKey("RouteId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("fk_RouteRivers_Routes"),
+                    j =>
+                    {
+                        j.HasKey("RouteId", "RiverId").HasName("RouteRivers_pkey");
+                        j.ToTable("RouteRivers");
+                        j.HasIndex(new[] { "RiverId" }, "fki_fk_RouteRivers_Rivers");
+                        j.HasIndex(new[] { "RouteId" }, "fki_fk_RouteRivers_Routes");
+                    });
         });
 
         modelBuilder.Entity<User>(entity =>

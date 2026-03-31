@@ -1,9 +1,10 @@
-﻿using ORMDomain.PGModels;
+﻿using Domain.Models.Routes;
+using Domain.PGModels;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RoutesDomain.Models
+namespace Domain.Models.Routes
 {
     public class RouteModel
     {
@@ -14,6 +15,8 @@ namespace RoutesDomain.Models
         public string Description { get; set; }
 
         public int UserId { get; set; }
+
+        public List<RiverModel> UserName { get; set; }
 
         public RouteModel() { }
 

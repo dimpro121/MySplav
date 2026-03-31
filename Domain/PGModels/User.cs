@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ORMDomain.PGModels;
+namespace Domain.PGModels;
 
 public partial class User
 {

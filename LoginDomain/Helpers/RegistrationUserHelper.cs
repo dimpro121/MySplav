@@ -1,5 +1,5 @@
-﻿using LoginDomain.Models;
-using ORMDomain.PGModels;
+﻿using Domain.Models.Login;
+using Domain.PGModels;
 using System;
 using System.Collections.Generic;
 using System.Net.Http.Headers;

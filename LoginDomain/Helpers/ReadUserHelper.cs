@@ -1,6 +1,6 @@
-﻿using LoginDomain.Models;
+﻿using Domain.Models.Login;
 using Microsoft.EntityFrameworkCore;
-using ORMDomain.PGModels;
+using Domain.PGModels;
 using System;
 using System.Collections.Generic;
 using System.Text;

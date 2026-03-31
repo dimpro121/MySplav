@@ -1,8 +1,8 @@
+using Domain.Models.Routes;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MySplav.Models;
-using ORMDomain.PGModels;
-using RoutesDomain.Models;
+using Domain.PGModels;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Threading.Tasks;

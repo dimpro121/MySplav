@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ORMDomain.PGModels;
-using RoutesDomain.Models;
+﻿using Domain.Models.Routes;
+using Microsoft.EntityFrameworkCore;
+using Domain.PGModels;
 using System;
 using System.Collections.Generic;
 using System.Text;

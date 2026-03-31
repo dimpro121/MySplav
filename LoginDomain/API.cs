@@ -1,7 +1,7 @@
 ﻿using BCrypt.Net;
 using LoginDomain.Helpers;
-using LoginDomain.Models;
-using ORMDomain.PGModels;
+using Domain.Models.Login;
+using Domain.PGModels;
 
 namespace LoginDomain
 {

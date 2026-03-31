@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ORMDomain.PGModels;
+namespace Domain.PGModels;
 
 public partial class Route
 {
@@ -16,4 +16,6 @@ public partial class Route
     public bool? IsDeleted { get; set; }
 
     public virtual User User { get; set; } = null!;
+
+    public virtual ICollection<River> Rivers { get; set; } = new List<River>();
 }

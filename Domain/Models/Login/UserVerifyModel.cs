@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LoginDomain.Models
+namespace Domain.Models.Login
 {
     public class UserVerifyModel
     {
