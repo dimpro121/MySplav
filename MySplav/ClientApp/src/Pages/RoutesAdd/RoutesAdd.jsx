@@ -115,11 +115,11 @@ function RoutesAdd() {
                     </h2>
                     <button
                         type="button"
-                        className="btn btn-light btn-sm"
+                        className="btn btn-light btn-sm RoutesAdd-button-back"
                         onClick={handleCancel}
                     >
                         <i className="bi bi-arrow-left me-1"></i>
-                        Назад к списку
+                        К списку
                     </button>
                 </div>
 

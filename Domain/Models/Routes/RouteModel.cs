@@ -16,7 +16,7 @@ namespace Domain.Models.Routes
 
         public int UserId { get; set; }
 
-        public List<RiverModel> UserName { get; set; }
+        public List<RiverModel> Rivers { get; set; }
 
         public RouteModel() { }
 
@@ -26,6 +26,8 @@ namespace Domain.Models.Routes
             Name = route.Name;
             Description = route.Description;
             UserId = route.UserId;
+
+            Rivers = route.Rivers.Select(i => new RiverModel(i)).ToList();
         }
     }
 }

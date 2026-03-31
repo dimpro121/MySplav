@@ -36,14 +36,6 @@
     padding: 20px 0 0 0;
 }
 
-@media (max-width: 768px) {
-    .btn-group {
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-    }
-
-        .btn-group button {
-            width: 100%;
-        }
+.RoutesAdd-button-back{
+    min-width: 90px;
 }
