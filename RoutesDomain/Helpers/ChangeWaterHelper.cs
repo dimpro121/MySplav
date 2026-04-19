@@ -31,11 +31,11 @@ namespace RoutesDomain.Helpers
                         water.Routes.Add(route);
                     }
 
-                } else if (!route.Rivers.Where(i => i.Id == model.Id).Any())
+                } else if (!route.Water.Where(i => i.Id == model.Id).Any())
                 {
                     var water = dc.Waters.Where(i => i.Id == model.Id).FirstOrDefault();
 
-                    route.Rivers.Add(water);
+                    route.Water.Add(water);
                 }
             }
         }
@@ -49,8 +49,8 @@ namespace RoutesDomain.Helpers
         {
             if (route.Id > 0)
             {
-                List<Waters> toDelete = new List<Waters>(route.Rivers.Count());
-                foreach (var water in route.Rivers)
+                List<Waters> toDelete = new List<Waters>(route.Water.Count());
+                foreach (var water in route.Water)
                 {
                     var nameWater = water.Name.ToLower();
                     
@@ -62,7 +62,7 @@ namespace RoutesDomain.Helpers
 
                 foreach (var item in toDelete)
                 {
-                    route.Rivers.Remove(item);
+                    route.Water.Remove(item);
                 }
             }
         }

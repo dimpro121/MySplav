@@ -35,22 +35,22 @@ public partial class MySplavContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("RoutesUser_fk");
 
-            entity.HasMany(d => d.Rivers).WithMany(p => p.Routes)
+            entity.HasMany(d => d.Water).WithMany(p => p.Routes)
                 .UsingEntity<Dictionary<string, object>>(
                     "RouteWater",
                     r => r.HasOne<Waters>().WithMany()
-                        .HasForeignKey("RiverId")
+                        .HasForeignKey("WaterId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
                         .HasConstraintName("fk_RouteWater_Waters"),
                     l => l.HasOne<Route>().WithMany()
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("fk_RouteWater_Routes"),
+                        .HasConstraintName("fk_RouteWater_Roue"),
                     j =>
                     {
-                        j.HasKey("RouteId", "RiverId").HasName("RouteRivers_pkey");
+                        j.HasKey("RouteId", "WaterId").HasName("RouteRivers_pkey");
                         j.ToTable("RouteWater");
-                        j.HasIndex(new[] { "RiverId" }, "fki_fk_RouteRivers_Rivers");
+                        j.HasIndex(new[] { "WaterId" }, "fki_fk_RouteRivers_Rivers");
                         j.HasIndex(new[] { "RouteId" }, "fki_fk_RouteRivers_Routes");
                     });
         });

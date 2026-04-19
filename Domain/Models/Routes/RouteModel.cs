@@ -27,7 +27,7 @@ namespace Domain.Models.Routes
             Description = route.Description;
             UserId = route.UserId;
 
-            Waters = route.Rivers.Select(i => new WaterModel(i)).ToList();
+            Waters = route.Water.Select(i => new WaterModel(i)).ToList();
         }
     }
 }

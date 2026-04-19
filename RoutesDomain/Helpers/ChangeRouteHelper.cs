@@ -31,7 +31,7 @@ namespace RoutesDomain.Helpers
         {
             var route = await dc.Routes
                 .Where(i => i.Id == model.Id && i.UserId == model.UserId)
-                .Include(i => i.Rivers)
+                .Include(i => i.Water)
                 .FirstOrDefaultAsync();
             
             if (route == null)
