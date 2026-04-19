@@ -11,8 +11,6 @@ public partial class MySplavContext : DbContext
     {
     }
 
-    public virtual DbSet<River> Rivers { get; set; }
-
     public virtual DbSet<Route> Routes { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
@@ -21,15 +19,10 @@ public partial class MySplavContext : DbContext
 
     public virtual DbSet<UserRole> UserRoles { get; set; }
 
+    public virtual DbSet<Waters> Waters { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<River>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("Rivers_pkey");
-
-            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
-        });
-
         modelBuilder.Entity<Route>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("Routes_pkey");
@@ -44,19 +37,19 @@ public partial class MySplavContext : DbContext
 
             entity.HasMany(d => d.Rivers).WithMany(p => p.Routes)
                 .UsingEntity<Dictionary<string, object>>(
-                    "RouteRiver",
-                    r => r.HasOne<River>().WithMany()
+                    "RouteWater",
+                    r => r.HasOne<Waters>().WithMany()
                         .HasForeignKey("RiverId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("fk_RouteRivers_Rivers"),
+                        .HasConstraintName("fk_RouteWater_Waters"),
                     l => l.HasOne<Route>().WithMany()
                         .HasForeignKey("RouteId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("fk_RouteRivers_Routes"),
+                        .HasConstraintName("fk_RouteWater_Routes"),
                     j =>
                     {
                         j.HasKey("RouteId", "RiverId").HasName("RouteRivers_pkey");
-                        j.ToTable("RouteRivers");
+                        j.ToTable("RouteWater");
                         j.HasIndex(new[] { "RiverId" }, "fki_fk_RouteRivers_Rivers");
                         j.HasIndex(new[] { "RouteId" }, "fki_fk_RouteRivers_Routes");
                     });
@@ -121,6 +114,13 @@ public partial class MySplavContext : DbContext
                         j.HasKey("UserRoleId", "UserId").HasName("UserRolesConnectionUsers_pkey");
                         j.ToTable("UserRolesConnectionUsers");
                     });
+        });
+
+        modelBuilder.Entity<Waters>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("Rivers_pkey");
+
+            entity.Property(e => e.Id).UseIdentityAlwaysColumn();
         });
 
         OnModelCreatingPartial(modelBuilder);

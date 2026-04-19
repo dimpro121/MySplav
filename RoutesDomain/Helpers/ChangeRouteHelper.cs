@@ -20,13 +20,19 @@ namespace RoutesDomain.Helpers
             };
 
             dc.Routes.Add(route);
+            ChangeWaterHelper.ChangeWater(route, model.Waters, dc);
+
             await dc.SaveChangesAsync();
+
             return new RouteModel(route);
         }
 
         internal static async Task<RouteModel> ChangeRoute(RouteModel model, MySplavContext dc)
         {
-            var route = await dc.Routes.Where(i => i.Id == model.Id && i.UserId == model.UserId).FirstOrDefaultAsync();
+            var route = await dc.Routes
+                .Where(i => i.Id == model.Id && i.UserId == model.UserId)
+                .Include(i => i.Rivers)
+                .FirstOrDefaultAsync();
             
             if (route == null)
             {
@@ -35,7 +41,8 @@ namespace RoutesDomain.Helpers
 
             route.Name = model.Name;
             route.Description = model.Description;
-            
+            ChangeWaterHelper.ChangeWater(route, model.Waters, dc);
+
             await dc.SaveChangesAsync();
             return new RouteModel(route);
         }

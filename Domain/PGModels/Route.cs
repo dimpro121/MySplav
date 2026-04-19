@@ -17,5 +17,5 @@ public partial class Route
 
     public virtual User User { get; set; } = null!;
 
-    public virtual ICollection<River> Rivers { get; set; } = new List<River>();
+    public virtual ICollection<Waters> Rivers { get; set; } = new List<Waters>();
 }

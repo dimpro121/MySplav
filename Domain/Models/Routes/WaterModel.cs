@@ -5,15 +5,15 @@ using System.Text;
 
 namespace Domain.Models.Routes
 {
-    public class RiverModel
+    public class WaterModel
     {
         public int Id { get; set; } = 0;
 
         public string Name { get; set; } = string.Empty;
 
-        public RiverModel() { }
+        public WaterModel() { }
         
-        public RiverModel(River model)
+        public WaterModel(Waters model)
         {
             Id = model.Id;
             Name = model.Name;

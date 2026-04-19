@@ -1,6 +1,25 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import React, { useState, useEffect, useRef } from 'react';
 import "./RoutesAdd.css";
+import DialogAgree from '../../Shared/DialogAgree/DialogAgree';
+
+let intRouteId = 0;
+
+const isEqual = (item1, item2) => {
+    if (item1.id && item1.id == item2.id) {
+        return true;
+    }
+
+    if (item1.internalId && item1.internalId == item2.internalId) {
+        return true;
+    }
+
+    return false;
+}
+
+const getKey = (item) => {
+    return item.id || item.internalId || `temp-${Date.now()}-${Math.random()}`;
+}
 
 function RoutesAdd() {
     const { id } = useParams();
@@ -10,7 +29,8 @@ function RoutesAdd() {
     const [data, setData] = useState({
         id: 0,
         name: "",
-        description: ""
+        description: "",
+        waters: []
     });
 
     const [blockButtonSubmit, setBlockButtonSubmit] = useState(false);
@@ -106,6 +126,35 @@ function RoutesAdd() {
         navigate('/Routes/List');
     };
 
+    const addWater = () => {
+        setData(prevState => ({
+            ...prevState,
+            waters: [...prevState.waters, { id: 0, internalId: intRouteId++, name: "" }]
+        }));
+    }
+
+    const deleteWater = (water) => {
+        let newWaters = data.waters.filter(i => !isEqual(i, water));
+        setData(prevState => ({
+            ...prevState,
+            waters: [...newWaters]
+        }));
+    }
+
+    const changeWater = (water, value) => {
+        let newWaters = data.waters.map(i => {
+            if (isEqual(i, water)) {
+                i.name = value
+            }
+
+            return i;
+        });
+        setData(prevState => ({
+            ...prevState,
+            waters: [...newWaters]
+        }));
+    }
+
     return (
         <div className="RoutesAdd-container">
             <div className="card shadow">
@@ -139,110 +188,148 @@ function RoutesAdd() {
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-3">
-                            <label htmlFor="id" className="form-label">
-                                ID маршрута
-                            </label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                id="id"
-                                name="id"
-                                value={data.id}
-                                disabled
-                                onChange={handleChange}
-                                min="0"
-                                required
-                            />
-                            <div className="form-text">
-                                {data.id === 0
-                                    ? "ID будет автоматически присвоен при создании"
-                                    : "ID маршрута нельзя изменить"}
-                            </div>
+                    <div className="mb-3">
+                        <label htmlFor="id" className="form-label">
+                            ID маршрута
+                        </label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            id="id"
+                            name="id"
+                            value={data.id}
+                            disabled
+                            onChange={handleChange}
+                            min="0"
+                            required
+                        />
+                        <div className="form-text">
+                            {data.id === 0
+                                ? "ID будет автоматически присвоен при создании"
+                                : "ID маршрута нельзя изменить"}
                         </div>
+                    </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="name" className="form-label">
-                                Название маршрута <span className="text-danger">*</span>
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="name"
-                                name="name"
-                                value={data.name}
-                                onChange={handleChange}
-                                placeholder="Введите название маршрута"
-                                required
-                                minLength="2"
-                                maxLength="100"
-                                disabled={isLoading}
-                            />
-                            <div className="form-text">
-                                Минимум 2 символа, максимум 100 символов
-                            </div>
+                    <div className="mb-3">
+                        <label htmlFor="name" className="form-label">
+                            Название маршрута <span className="text-danger">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="name"
+                            name="name"
+                            value={data.name}
+                            onChange={handleChange}
+                            placeholder="Введите название маршрута"
+                            required
+                            minLength="2"
+                            maxLength="100"
+                            disabled={isLoading}
+                        />
+                        <div className="form-text">
+                            Минимум 2 символа, максимум 100 символов
                         </div>
+                    </div>
 
-                        <div className="mb-3">
-                            <label htmlFor="description" className="form-label">
-                                Краткое описание маршрута
-                            </label>
-                            <textarea
-                                className="form-control"
-                                id="description"
-                                name="description"
-                                value={data.description}
-                                onChange={handleChange}
-                                rows="4"
-                                placeholder="Введите описание маршрута"
-                                maxLength="500"
-                                disabled={isLoading}
-                            />
-                            <div className="form-text d-flex justify-content-between">
-                                <span>Опишите детали маршрута, остановки, особенности</span>
-                                <span>{data.description.length}/500</span>
-                            </div>
+                    <div className="mb-3">
+                        <label htmlFor="description" className="form-label">
+                            Краткое описание маршрута
+                        </label>
+                        <textarea
+                            className="form-control"
+                            id="description"
+                            name="description"
+                            value={data.description}
+                            onChange={handleChange}
+                            rows="4"
+                            placeholder="Введите описание маршрута"
+                            maxLength="500"
+                            disabled={isLoading}
+                        />
+                        <div className="form-text d-flex justify-content-between">
+                            <span>Опишите детали маршрута, остановки, особенности</span>
+                            <span>{data.description.length}/500</span>
                         </div>
+                    </div>
 
-                        {error && (
-                            <div className="alert alert-warning">
-                                <i className="bi bi-info-circle me-2"></i>
-                                Проверьте правильность введенных данных
-                            </div>
-                        )}
+                    <div className="mb-3">
+                        <button
+                            type="submit"
+                            className="btn btn-primary"
+                            onClick={addWater}
+                        >
+                            Добавить водоём
+                        </button>
+                        {
+                            data.waters?.map(i => {
+                                let isDisable = i.Id != 0 || i.Id != null ? true : false;
+                                return (
+                                    <div className="RoutesAdd-input-container" key={getKey(i)}>
+                                        <input
+                                            type="text"
+                                            className="RoutesAdd-input"
+                                            value={i.name ?? ""}
+                                            onChange={(e) => changeWater(i, e.target.value)}
+                                            placeholder="Введите название водоёма"
+                                            required
+                                            minLength="2"
+                                            maxLength="100"
+                                            disabled={isLoading || isDisable}
+                                            name={getKey(i)}
+                                        />
 
-                        <div className="d-flex justify-content-between mt-4 pt-3 border-top">
+                                        <img
+                                            src="/imgs/icons/trash.svg"
+                                            className="RoutesAdd-input-container-delete"
+                                            title="Удалить"
+                                            onClick={() => deleteWater(i)}
+                                        />
+                                    </div>
+                                )
+                                    
+                            })
+                        }
+                    </div>
+
+                    {error && (
+                        <div className="alert alert-warning">
+                            <i className="bi bi-info-circle me-2"></i>
+                            Проверьте правильность введенных данных
+                        </div>
+                    )}
+
+                    <div className="d-flex justify-content-between mt-4 pt-3 border-top">
+                        <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            onClick={handleCancel}
+                            disabled={blockButtonSubmit}
+                        >
+                            Отмена
+                        </button>
+
+                        <div className="btn-group">
                             <button
-                                type="button"
-                                className="btn btn-outline-secondary"
-                                onClick={handleCancel}
-                                disabled={blockButtonSubmit}
+                                type="submit"
+                                className="btn btn-primary"
+                                disabled={blockButtonSubmit || isLoading}
+                                onClick={handleSubmit}
                             >
-                                Отмена
+                                {isLoading ? (
+                                    <>
+                                        <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                        Сохранение...
+                                    </>
+                                ) : (
+                                    <>
+                                        <i className="bi bi-check-circle me-2"></i>
+                                        Опубликовать
+                                    </>
+                                )}
                             </button>
-
-                            <div className="btn-group">
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary"
-                                    disabled={blockButtonSubmit || isLoading}
-                                >
-                                    {isLoading ? (
-                                        <>
-                                            <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                                            Сохранение...
-                                        </>
-                                    ) : (
-                                        <>
-                                            <i className="bi bi-check-circle me-2"></i>
-                                            Опубликовать
-                                        </>
-                                    )}
-                                </button>
-                            </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

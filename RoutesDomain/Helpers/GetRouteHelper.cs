@@ -12,7 +12,9 @@ namespace RoutesDomain.Helpers
     {
         internal static async Task<RouteModel> GetRoute(int id, MySplavContext dc)
         {
-            var route = await dc.Routes.Where(i => i.Id == id && i.IsDeleted == false).FirstOrDefaultAsync();
+            var route = await dc.Routes.Where(i => i.Id == id && i.IsDeleted == false)
+                .Include(i => i.Rivers)
+                .FirstOrDefaultAsync();
 
             return new RouteModel(route);
         }
@@ -23,6 +25,7 @@ namespace RoutesDomain.Helpers
                 await dc.Routes
                         .Where(i => i.UserId == userId && i.IsDeleted == false)
                         .OrderByDescending(i => i.Id)
+                        .Include(i => i.Rivers)
                         .Select(i => new RouteModel(i))
                         .ToListAsync();
 
