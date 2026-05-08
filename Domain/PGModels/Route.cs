@@ -15,6 +15,10 @@ public partial class Route
 
     public bool? IsDeleted { get; set; }
 
+    public string? Country { get; set; }
+
+    public string? Region { get; set; }
+
     public virtual User User { get; set; } = null!;
 
     public virtual ICollection<Waters> Water { get; set; } = new List<Waters>();

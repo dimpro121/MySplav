@@ -28,6 +28,7 @@ public partial class MySplavContext : DbContext
             entity.HasKey(e => e.Id).HasName("Routes_pkey");
 
             entity.Property(e => e.Id).UseIdentityAlwaysColumn();
+            entity.Property(e => e.Country).HasDefaultValueSql("'Россия'::text");
             entity.Property(e => e.IsDeleted).HasDefaultValue(false);
 
             entity.HasOne(d => d.User).WithMany(p => p.Routes)

@@ -1,0 +1,7 @@
+.bg-main {
+    background: var(--main-color);
+}
+
+.RoutesAdd-button-back{
+    min-width: 90px;
+}
