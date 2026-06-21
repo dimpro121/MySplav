@@ -1,0 +1,12 @@
+.RouteCountry-container {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.Route-region{
+    width: 300px;
+}
+
+.Route-country {
+    max-width: 250px;
+}

@@ -10,6 +10,7 @@ import RouteName from './Modules/RouteName/RouteName';
 import RouteDescription from './Modules/RouteDescription/RouteDescription';
 import RouteWaters from './Modules/RouteWaters/RouteWaters';
 import ValidationError from './Modules/ValidationError/ValidationError';
+import RouteCountry from './Modules/RouteCountry/RouteCountry';
 import LowPanel from './Modules/LowPanel/LowPanel';
 
 let intRouteId = 0;
@@ -184,6 +185,13 @@ function RoutesAdd() {
                         getKey={getKey}
                         deleteWater={deleteWater}
                     />
+
+                    <RouteCountry
+                        handleChange={handleChange}
+                        country={data.country}
+                        region={data.region}
+                    />
+
                     <ValidationError error={error} />
 
                     <LowPanel

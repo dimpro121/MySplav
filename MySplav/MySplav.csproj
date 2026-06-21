@@ -26,7 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\src\Pages\RoutesAdd\Modules\ControllButtons\" />
     <Folder Include="wwwroot\imgs\icons\" />
   </ItemGroup>
   

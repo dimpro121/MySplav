@@ -17,6 +17,8 @@ namespace RoutesDomain.Helpers
                 Name = model.Name,
                 UserId = model.UserId,
                 Description = model.Description,
+                Country = model.Country,
+                Region = model.Region
             };
 
             dc.Routes.Add(route);
@@ -41,6 +43,8 @@ namespace RoutesDomain.Helpers
 
             route.Name = model.Name;
             route.Description = model.Description;
+            route.Country = model.Country;
+            route.Region = model.Region;
             ChangeWaterHelper.ChangeWater(route, model.Waters, dc);
 
             await dc.SaveChangesAsync();

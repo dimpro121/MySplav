@@ -16,6 +16,10 @@ namespace Domain.Models.Routes
 
         public int UserId { get; set; }
 
+        public string Country { get; set; }
+
+        public string Region { get; set; }
+
         public List<WaterModel> Waters { get; set; }
 
         public RouteModel() { }
@@ -26,6 +30,8 @@ namespace Domain.Models.Routes
             Name = route.Name;
             Description = route.Description;
             UserId = route.UserId;
+            Country = route.Country;
+            Region = route.Region;
 
             Waters = route.Water.Select(i => new WaterModel(i)).ToList();
         }
